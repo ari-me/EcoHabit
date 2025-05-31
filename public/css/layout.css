@@ -1,0 +1,110 @@
+/* General body styling */
+body {
+  margin: 0;
+  text-align: center;
+  background-color: #f0fdf4; /* soft eco-green background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar EcoHabit style */
+.navbar.bg-ecohabit {
+  background-color: #38a169 !important; /* Eco green */
+  background-image: url('/images/leafy-bg.jpg'); /* Optional background image */
+  background-size: cover;
+  background-position: center;
+  border-bottom: 4px solid #2e7756;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand title */
+.navbar-brand strong {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Navigation links */
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  color: #d3f9d8 !important; /* light green on hover */
+}
+
+/* Search bar input */
+.search .form-control {
+  border: 2px solid #2f855a;
+  border-radius: 25px 0 0 25px;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #2f855a;
+  padding: 0.5rem 1rem;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.search .form-control:focus {
+  border-color: #d3af88;
+  box-shadow: none;
+}
+
+/* Search button */
+.search .btn {
+  border-radius: 0 25px 25px 0;
+  background-color: #d3af88;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.search .btn:hover {
+  background-color: #e3b946;
+  color: white;
+}
+
+/* Container spacing */
+.container {
+  padding-top: 1rem;
+}
+
+/* Brand icon width */
+.w-25 {
+  width: 3.5rem !important;
+}
+
+/* Responsive styling */
+@media screen and (max-width: 992px) {
+  .search {
+    margin-top: -8%;
+    border-radius: 3px;
+    justify-content: center !important;
+  }
+
+  .search form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search .form-control,
+  .search .btn {
+    width: 100%;
+    border-radius: 25px;
+    margin: 0.2rem 0;
+  }
+
+  .navbar-collapse {
+    display: flex;
+    justify-content: space-between !important;
+  }
+
+  .nav-link {
+    display: inline;
+  }
+
+  ul {
+    margin-right: auto;
+    padding: 0 !important;
+  }
+}

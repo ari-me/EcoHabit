@@ -1,0 +1,107 @@
+/* Heading */
+#heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    margin: 2% 5%;
+    color: #2f855a;
+  }
+  
+  /* Container Styling */
+  #box {
+    padding: 2%;
+    margin: 2% auto;
+    max-width: 900px;
+    background: #f0fdf4;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1);
+  }
+  
+  /* Week Days Navigation */
+  .week-days {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #e6fffa;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    list-style: none;
+  }
+  
+  .week-days li {
+    padding: 8px 12px;
+    border: 1px solid #38a169;
+    border-radius: 6px;
+    background: white;
+    color: #2f855a;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .week-days li:hover {
+    background-color: #c6f6d5;
+  }
+  
+  /* Habits List */
+  #habits {
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  #habits li {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 2px solid #c6f6d5;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Habit Info Row */
+  .habit-streak {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .habit-streak h4 {
+    text-transform: capitalize;
+    margin: 0;
+    color: #2f855a;
+  }
+  
+  .habit-streak p {
+    margin: 0;
+    color: #4a5568;
+  }
+  
+  /* Day Buttons */
+  .week-days form button {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .week-days form button:hover {
+    background: #2f855a;
+  }
+  
+  /* Scrollbar for habit list */
+  #habits::-webkit-scrollbar {
+    width: 8px;
+  }
+  #habits::-webkit-scrollbar-thumb {
+    background-color: #c6f6d5;
+    border-radius: 4px;
+  }
+  

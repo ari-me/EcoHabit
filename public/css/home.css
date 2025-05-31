@@ -1,0 +1,175 @@
+/* Page body */
+body {
+    background-color: #f0fdf4; /* soft eco green */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2f855a;
+    padding: 20px;
+  }
+  
+  /* Quote styling */
+  #eco-quote {
+    background: #e6fffa;
+    padding: 15px 25px;
+    margin-bottom: 30px;
+    border-left: 5px solid #38a169;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1);
+  }
+  
+  /* Button at top right */
+  .text-right .btn-outline-danger {
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  .text-right .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Habit form */
+  #add-habit-form {
+    background: white;
+    border: 2px solid #38a169;
+    border-radius: 15px;
+    padding: 25px;
+    max-width: 700px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  #add-habit-form input,
+  #add-habit-form select {
+    border: 1px solid #c6f6d5;
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+  
+  #add-habit-form button {
+    margin-right: 10px;
+  }
+  
+  /* Form submit button */
+  #add-habit-form button[type="submit"] {
+    background-color: #38a169;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+  
+  #add-habit-form button[type="submit"]:hover {
+    background-color: #2f855a;
+  }
+  
+  /* Cancel button */
+  #cancel-habit {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+  
+  #cancel-habit:hover {
+    background-color: #c53030;
+  }
+  
+  /* Habit box */
+  #box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Habit list items */
+  .list-group-item-success {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 20px;
+    background-color: #d3f9d8;
+    border: 1px solid #38a169;
+  }
+  
+  /* Habit info layout */
+  .habit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .habit-info h4 {
+    margin-bottom: 0;
+    color: #22543d;
+  }
+  
+  /* Habit streak row */
+  .habit-streak p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+  }
+  
+  /* Add + Streak buttons */
+  #btn-add-habit,
+  #btn-streak {
+    margin: 10px 10px 20px 0;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  #btn-add-habit:hover {
+    background-color: #2f855a;
+  }
+  
+  #btn-streak:hover {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+  }
+  
+  /* Change status buttons */
+  .btn-change-status {
+    background-color: #f6e05e;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-change-status:hover {
+    background-color: #ecc94b;
+  }
+  
+  /* Remove button */
+  a.btn-danger {
+    border-radius: 6px;
+  }
+  
+  /* Mobile responsiveness */
+  @media screen and (max-width: 768px) {
+    .habit-info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .habit-info form,
+    .habit-info a {
+      margin-top: 10px;
+    }
+  
+    .habit-streak p {
+      width: 100%;
+    }
+  }
+  
