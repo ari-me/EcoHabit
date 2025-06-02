@@ -45,12 +45,20 @@ const suggestions = [
   useNewUrlParser: true,
   useUnifiedTopology: true
 })*/
-mongoose.connect(process.env.MONGO_URI, {
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error('Error: MONGO_URI is not defined in the environment variables.');
+  process.exit(1);
+}
+
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
+
 
 // View engine setup
 app.set("view engine", "ejs");
