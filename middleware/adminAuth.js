@@ -1,24 +1,14 @@
-require('dotenv').config();
-
 module.exports = (req, res, next) => {
-  const auth = req.headers.authorization;
+  const auth = { login: 'admin', password: 'password123' }; 
 
-  if (!auth) {
-    res.set('WWW-Authenticate', 'Basic realm="Admin Area"');
-    return res.status(401).send('Authentication required.');
+  const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+  const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+  if (login === auth.login && password === auth.password) {
+    return next(); // Auth success
   }
 
-  const encoded = auth.split(' ')[1];
-  const decoded = Buffer.from(encoded, 'base64').toString();
-  const [username, password] = decoded.split(':');
-
-  if (
-    username === process.env.ADMIN_EMAIL &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
-    return next();
-  }
-
+  // No or wrong credentials: send 401
   res.set('WWW-Authenticate', 'Basic realm="Admin Area"');
-  return res.status(401).send('Invalid credentials.');
+  res.status(401).send('Authentication required.');
 };

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const path = require('path');
 
 
 // getting homepage controller
@@ -7,7 +8,13 @@ const homeController = require("../controllers/home_controller");
 const detailsController = require('../controllers/details_controller');
 
 
-router.get("/", homeController.home);
+router.get("/", (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/landing');
+  } else {
+    return res.sendFile(path.join(__dirname, '../public/firstweb.html'));
+  }
+});
 // create habit route
 router.post("/create-habit", homeController.createHabit);
 // delete habit route

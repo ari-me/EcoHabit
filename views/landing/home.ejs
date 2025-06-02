@@ -1,91 +1,72 @@
 <link rel="stylesheet" href="/css/home.css" />
 
-<div class="text-right mb-3">
-  <a href="/logout" class="btn btn-outline-danger">
-    <i class="fa fa-sign-out"></i> Logout
-  </a>
-</div>
-
-<div id="eco-quote" class="quote-box">
-  <%= quote %>
-</div>
-
-<!-- Habit creation form -->
-<div id="add-habit-form" class="rounded bg-blue shadow p-3 mb-5" style="display: none;">
-  <form action="/create-habit" method="POST">
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        name="habit"
-        placeholder="Enter Your Habit"
-        required
-      />
+<!-- Habit Section -->
+<div class="container mb-4">
+  <!-- Greeting and Stats Box -->
+  <div class="welcome-box box p-3 mb-4 d-flex justify-content-between align-items-center">
+    <h4>Hello, <%= user ? user.name : "Eco Hero" %> 👋</h4>
+    <div>
+      <strong>Eco Score:</strong> <%= ecoScore %> 🌿 &nbsp; | &nbsp;
+      <strong>Streak:</strong> <%= streak %> 🔥
     </div>
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        name="description"
-        placeholder="Enter Your Goal"
-        required
-      />
+  </div>
+  <div class="box">    
+    <h2 class="mb-3"><i class="fa fa-calendar"></i> Today's Habits</h2>
+
+    <!-- Add Habit Button and Streak Button -->
+    <div class="habitbutton mb-3 d-flex gap-2 justify-content-center align-items-center">
+      <button class="btn btn-success" id="btn-add-habit">
+        <i class="fa fa-plus"></i> Add New Habit
+      </button>
+      <a class="btn btn-primary" href="/details" id="btn-streak">
+        <i class="fa fa-check"></i> Show My Streak
+      </a>
     </div>
 
-    <div class="form-group">
-      <label for="inputEnd">Date(Optional)</label>
-      <input type="date" class="form-control" name="end" />
+    <!-- Habit Form -->
+    <div id="add-habit-form" class="rounded bg-blue shadow p-4 mb-4" style="display: none;">
+      <form action="/create-habit" method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" name="habit" placeholder="Enter Your Habit" required />
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="description" placeholder="Enter Your Goal" required />
+        </div>
+        <div class="form-group">
+          <label>Date (Optional)</label>
+          <input type="date" class="form-control" name="end" />
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" class="form-control" name="time" required />
+        </div>
+        <div class="form-group">
+          <label>Frequency</label>
+          <select class="form-control" name="frequency">
+            <option>Twice a Day</option>
+            <option selected>Daily</option>
+            <option>Weekly</option>
+          </select>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-secondary">
+            <i class="fa fa-plus"></i> Create Habit
+          </button>
+          <button type="button" class="btn btn-danger" id="cancel-habit">
+            <i class="fa fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div class="form-group">
-      <label for="inputTime">Time</label>
-      <input
-        type="time"
-        class="form-control"
-        name="time"
-        required
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="inputState">Frequency</label>
-      <select id="inputState" class="form-control" name="frequency">
-        <option>Twice a Day</option>
-        <option selected>Daily</option>
-        <option>Weekly</option>
-      </select>
-    </div>
-
-    <button type="submit" class="btn btn-secondary position-relative">
-      <i class="fa fa-plus"></i> Create Habit
-    </button>
-    <button type="button" class="btn btn-danger" id="cancel-habit">
-      <i class="fa fa-times"></i> Cancel
-    </button>
-  </form>
-</div>
-
-<!-- Habit list -->
-<div class="container rounded bg-white shadow p-3 mb-5" id="box">
-  <button class="btn btn-success" id="btn-add-habit">
-    <i class="fa fa-plus"></i> Add New Habit
-  </button>
-  <a class="btn btn-primary" href="/details" role="button" id="btn-streak">
-    <i class="fa fa-check"></i> Show My Streak
-  </a>
-
-  <div>
+    <!-- Habit List -->
     <ul class="list-group" id="habits">
       <% for (let i of habit_list) { %>
-      <li class="list-group-item list-group-item-success habit">
-        <div class="habit-info">
-          <span id="habit-name"><h4><%= i.habit %></h4></span>
-          <div>
-            <form
-              action="/details/update-habit/?id=<%=i._id%>&day=one&val=<%=i.days.one%>"
-              method="POST"
-              id="streak-container"
-            >
+      <li class="list-group-item list-group-item-success habit mb-2">
+        <div class="d-flex justify-content-between align-items-center habit-info mb-2">
+          <h4 class="mb-0"><%= i.habit %></h4>
+          <div class="d-flex gap-2">
+            <form action="/details/update-habit/?id=<%=i._id%>&day=one&val=<%=i.days.one%>" method="POST">
               <button class="btn btn-change-status" type="submit">
                 <%= i.days.one %>
               </button>
@@ -95,22 +76,37 @@
             </a>
           </div>
         </div>
-
         <div class="row habit-streak">
-          <% if (i.end != "") { %>
-            <p class="col-lg-3">Ending on: <%= i.end %></p>
-          <% } else { %>
-            <p class="col-lg-3">Building this forever</p>
-          <% } %>
+          <p class="col-lg-3"><%= i.end ? `Ending on: ${i.end}` : 'Building this forever' %></p>
           <p class="col-lg-3"><%= i.description %></p>
           <p class="col-lg-3">Streak: <%= i.streak %>/7</p>
           <p class="col-lg-3"><%= i.time %> <%= i.frequency %></p>
-          
         </div>
       </li>
       <% } %>
     </ul>
   </div>
+
 </div>
 
+<!-- Habit Suggestion of the Day -->
+<div class="box boxday mb-4">
+  <h4 class="text-center mb-3">💡 Habit Suggestion of the Day</h4>
+  <div id="habit-suggestion" class="suggestion p-3 rounded">
+    <%= suggestion %>
+  </div>
+</div>
+
+<!-- Quote of the Day -->
+<div class="box boxday mb-5">
+  <h4 class="text-center mb-3">🌱 Quote / Tip of the Day</h4>
+  <div id="eco-quote" class="text-center">
+    <%= quote %>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center">
+  © EcoHabit - Built to inspire small sustainable wins.
+</footer>
 <script type="text/javascript" src="/js/home.js"></script>

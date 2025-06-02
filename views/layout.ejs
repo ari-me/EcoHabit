@@ -19,43 +19,34 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-ecohabit">
-      <div class="container collapse navbar-collapse x">
-        <a class="navbar-brand" href="/">
-          <strong>
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/9768/9768450.png"
-              class="w-25"
-            />
-            EcoHabit
-          </strong>
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <strong>EcoHabit 🌿</strong>
         </a>
-        <ul class="navbar-nav font-weight-bolder">
-          <li class="nav-item active">
-            <a class="nav-link" href="/landing"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/details">Details</a>
-          </li>
-        </ul>
+        <strong>
+          <a class="navbar-brand d-flex align-items-center nav-link" href="/landing">Habits</a>
+        </strong>            <strong>
+          <a class="navbar-brand d-flex align-items-center nav-link" href="/details">Details</a>
+        </strong>
+        <strong>
+          <a class="navbar-brand d-flex align-items-center nav-link text-danger" href="/logout">Logout</a>
+        </strong>
       </div>
-      <div class="container search d-flex justify-content-end">
-        <form class="form-inline my-lg-0 my-sm-0">
+    
+      <div class="container-fluid search d-flex justify-content-end">
+        <form class="search-form">
           <input
-            class="form-control mr-sm-1"
             type="search"
+            id="searchbar"
+            class="form-control search-input"
             placeholder="Search Habit"
             aria-label="Search"
-            id="searchbar"
             onkeyup="search_habit()"
           />
-          <button class="btn btn-outline-dark my-2 my-sm-0" type="button">
-            Search
-          </button>
-        </form>
+          <button type="button" class="btn search-btn">Search</button>
+        </form>           
       </div>
-    </nav>
+    </nav>   
 
     <br />
     <div class="container"><%- body %></div>

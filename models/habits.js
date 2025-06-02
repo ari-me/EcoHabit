@@ -17,6 +17,11 @@ const habitSchema = new mongoose.Schema({
       six: { type: String, default: null, },
       seven: { type: String, default: null, },
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    }
 });
   
 

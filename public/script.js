@@ -19,30 +19,31 @@ document.addEventListener("DOMContentLoaded", () => {
     quoteBox.innerText = quoteText;
   }
 });
-
-
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
+  e.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
     const response = await fetch('/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    
-    const data = await response.json();
-    if (response.ok) {
-        document.getElementById('errorMessage').textContent = 'Login successful! Redirecting...';
-        setTimeout(() => {
-          window.location.href = '/landing';
-        }, 1000);
-    } else {
-        document.getElementById('errorMessage').textContent = data.error || 'Login failed.';
-    }      
-  });
 
+    const data = await response.json(); // 💥 only works if response is JSON
+
+    if (response.ok) {
+      document.getElementById('errorMessage').textContent = 'Login successful! Redirecting...';
+      setTimeout(() => {
+        window.location.href = '/landing';
+      }, 1000);
+    } else {
+      document.getElementById('errorMessage').textContent = data.error || 'Login failed.';
+    }
+  } catch (err) {
+    document.getElementById('errorMessage').textContent = 'Server error. Try again later.';
+    console.error('Login error:', err);
+  }
+});

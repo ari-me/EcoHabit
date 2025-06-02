@@ -1,19 +1,6 @@
 const Habit = require("../models/habits");
 
 
-// Render the home EJS page
-module.exports.home = async function (req, res) {
-  try {
-    const habits = await Habit.find({});
-    return res.render("landing/home", {
-      title: "Habit Tracker App",
-      habit_list: habits
-    });
-  } catch (err) {
-    console.error("Error in fetching habits:", err);
-    return res.status(500).send("Error loading habits");
-  }
-};
 
 // Create a new habit
 module.exports.createHabit = async function (req, res) {
@@ -36,6 +23,7 @@ module.exports.createHabit = async function (req, res) {
       date: new Date(),
       time: req.body.time,
       days: days,
+      user: req.user._id,
     });
 
     return res.redirect("/landing");

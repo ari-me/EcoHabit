@@ -2,18 +2,19 @@
 body {
   margin: 0;
   text-align: center;
-  background-color: #f0fdf4; /* soft eco-green background */
+  background-color: #2e7756; /* soft eco-green background */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Navbar EcoHabit style */
+
+
 .navbar.bg-ecohabit {
-  background-color: #38a169 !important; /* Eco green */
-  background-image: url('/images/leafy-bg.jpg'); /* Optional background image */
+  background-color: #2e7756 !important; 
   background-size: cover;
   background-position: center;
   border-bottom: 4px solid #2e7756;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px 10px;
 }
 
 /* Brand title */
@@ -29,82 +30,79 @@ body {
 
 .nav-link:hover {
   text-decoration: underline;
-  color: #d3f9d8 !important; /* light green on hover */
+  color: #d3f9d8 !important; 
 }
 
-/* Search bar input */
-.search .form-control {
+/* Search form container */
+/* Force search form to line up perfectly */
+.search-form {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  gap: 0; /* no space between input and button */
+  height: 40px; /* fixed height */
+}
+
+/* Consistent height and removal of default spacing */
+.search-input,
+.search-btn {
+  height: 100%; /* match parent form height */
+  padding: 0 16px;
+  font-size: 1rem;
+  line-height: 1;
+  border: none;
+}
+
+/* Input */
+.search-input {
   border: 2px solid #2f855a;
+  border-right: none; /* avoid double border with button */
   border-radius: 25px 0 0 25px;
   background-color: rgba(255, 255, 255, 0.95);
   color: #2f855a;
-  padding: 0.5rem 1rem;
-  width: 200px;
-  transition: border-color 0.3s ease;
+  outline: none;
 }
 
-.search .form-control:focus {
-  border-color: #d3af88;
-  box-shadow: none;
-}
-
-/* Search button */
-.search .btn {
-  border-radius: 0 25px 25px 0;
+/* Button */
+.search-btn {
   background-color: #d3af88;
   color: white;
-  border: none;
-  padding: 0.5rem 1rem;
+  border: 2px solid #2f855a;
+  border-left: none;
+  border-radius: 0 25px 25px 0;
   font-weight: bold;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.search .btn:hover {
+/* Hover effect */
+.search-btn:hover {
   background-color: #e3b946;
-  color: white;
 }
 
-/* Container spacing */
-.container {
-  padding-top: 1rem;
-}
-
-/* Brand icon width */
-.w-25 {
-  width: 3.5rem !important;
-}
-
-/* Responsive styling */
-@media screen and (max-width: 992px) {
-  .search {
-    margin-top: -8%;
-    border-radius: 3px;
-    justify-content: center !important;
-  }
-
-  .search form {
+/* Responsive tweak (optional) */
+@media screen and (max-width: 600px) {
+  .search-form {
     flex-direction: column;
-    align-items: center;
+    height: auto;
   }
 
-  .search .form-control,
-  .search .btn {
+  .search-input,
+  .search-btn {
     width: 100%;
     border-radius: 25px;
-    margin: 0.2rem 0;
+    border: 2px solid #2f855a;
   }
 
-  .navbar-collapse {
-    display: flex;
-    justify-content: space-between !important;
+  .search-input {
+    border-right: 2px solid #2f855a;
+    border-bottom: none;
+    border-radius: 25px 25px 0 0;
   }
 
-  .nav-link {
-    display: inline;
-  }
-
-  ul {
-    margin-right: auto;
-    padding: 0 !important;
+  .search-btn {
+    border-top: none;
+    border-radius: 0 0 25px 25px;
   }
 }

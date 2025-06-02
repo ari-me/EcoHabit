@@ -8,10 +8,13 @@ const expressLayout = require('express-ejs-layouts');
 require('dotenv').config();
 require('./passport-config');
 
+const Habit = require('./models/habits'); 
 const User = require('./models/user');
 const auth = require('./middleware/auth');
+const ensureAuth = require('./middleware/ensureAuth');
 const app = express();
 const port = process.env.PORT || 3000;
+
 
 const ecoQuotes = [
   { q: "The Earth is what we all have in common.", a: "Wendell Berry" },
@@ -23,12 +26,29 @@ const ecoQuotes = [
   { q: "One of the first conditions of happiness is that the link between man and nature shall not be broken.", a: "Leo Tolstoy" }
 ];
 
+const suggestions = [
+  "Bring your own reusable bag when shopping 🛍️",
+  "Turn off the lights when you leave a room 💡",
+  "Bike or walk instead of driving today 🚲",
+  "Take a 5-minute shower to save water 🚿",
+  "Pick up litter during your walk 🚮",
+  "Unplug devices you're not using 🔌",
+  "Eat a meatless meal today 🥦",
+  "Refill your water bottle instead of buying plastic 🧴",
+  "Recycle something at home ♻️",
+  "Plant something — even herbs on your windowsill 🌱"
+];
+
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/ecohabit', {
+/*mongoose.connect('mongodb://localhost:27017/ecohabit', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
+})*/
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
@@ -39,20 +59,19 @@ app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 app.use(expressLayout);
 
-// Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Serve all static files except /admin
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, filePath) => {
     if (filePath.includes('/admin')) {
-      // Don't serve admin files here
       res.status(403).end();
     }
   }
 }));
-app.use(express.static(path.join(__dirname, 'assets'))); // For new structure
-
+app.use(express.static(path.join(__dirname, 'assets'))); 
 // Session & Passport
 app.use(session({
   secret: 'your_secret_key',
@@ -62,42 +81,74 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//User routes
+const usersRouter = require('./routes/users');
+app.use('/users', usersRouter);
+
 // Auth routes
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login.html' }),
   (req, res) => {
-    res.redirect('/landing/home'); // Serve EJS page here
+    res.redirect('/landing'); // Serve EJS page here
   }
 );
 
-const Habit = require('./models/habits'); // Add at the top if it's not already
+// Use EJS routes
+app.use('/', require('./routes/index'));
+app.use('/details', require('./routes/details'));
 
-app.get('/landing', async (req, res) => {
+//Landing Page Quote and Habits Data
+app.get('/landing', ensureAuth, async (req, res) => {
   try {
     const habits = await Habit.find({});
 
-    // Pick quote of the day
+    // Calculate ecoScore and streak
+    let ecoScore = 0;
+    let streak = 0;
+
+    habits.forEach(habit => {
+      let consecutive = 0;
+      for (let day of Object.values(habit.days)) {
+        if (day === "yes") {
+          ecoScore += 10;
+          consecutive++;
+        } else {
+          consecutive = 0;
+        }
+      }
+      if (consecutive > streak) {
+        streak = consecutive;
+      }
+    });
+
+    // Pick quote and suggestion of the day
     const today = new Date();
     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+
+    // Quote of the day
     const quoteData = ecoQuotes[dayOfYear % ecoQuotes.length];
     const quote = `"${quoteData.q}" — ${quoteData.a}`;
 
-    res.render('landing/home', {
-      title: 'Habit Tracker',
+    // Suggestion of the day
+    const suggestion = suggestions[dayOfYear % suggestions.length];
+
+    return res.render("landing/home", {
+      title: "EcoHabit Tracker",
       habit_list: habits,
-      quote // 👈 Pass the quote to EJS
+      user: req.user || null,  
+      quote,
+      ecoScore,
+      streak,
+      suggestion  
     });
   } catch (err) {
     console.error('Error fetching habits:', err);
     res.status(500).send('Server Error');
   }
 });
-
-
 
 // Logout
 app.get('/logout', (req, res) => {
@@ -108,20 +159,29 @@ app.get('/logout', (req, res) => {
 });
 
 // Login POST
-app.post('/login', async (req, res) => {
+app.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(401).json({ error: 'Email not found' });
-    if (user.password !== password) return res.status(401).json({ error: 'Incorrect password' });
+    if (!user) return res.status(400).json({ error: 'User not found' });
+    if (user.password !== password) return res.status(401).json({ error: 'Invalid password' });
 
-    // You can use req.login(user, ...) if needed
-    res.json({ message: 'Login successful' });
+    req.login(user, (err) => {
+      if (err) {
+        console.error('Login error:', err);
+        return res.status(500).json({ error: 'Login failed' });
+      }
+      return res.status(200).json({ message: 'Login successful' });
+    });
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
+
+
 
 // Static Routes
 app.get('/', (req, res) => {
@@ -135,10 +195,6 @@ app.get('/login', (req, res) => {
 // Protect /admin
 const basicAdminAuth = require('./middleware/adminAuth');
 app.use('/admin', basicAdminAuth, express.static(path.join(__dirname, 'public/admin')));
-
-// Use EJS routes
-app.use('/', require('./routes/index'));
-app.use('/details', require('./routes/details'));
 
 // Start server
 app.listen(port, () => {

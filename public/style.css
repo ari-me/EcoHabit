@@ -45,13 +45,13 @@ header h1{
   }
 
   header a:hover {
-    background-color: #dff9f4;
+    background-color: #ede8d0;
   }
 
   .section {
     width: 90%;
     max-width: 1000px;
-    background: white;
+    background: #ede8d0;
     margin: 1rem 0;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -118,7 +118,7 @@ footer {
     padding: 1rem;
     background-color: #2e5339;
     color: white;
-    width: 100%;
+    width: 97.5%;
     text-align: center;
 }
 
@@ -354,4 +354,8 @@ input, button {
   
   .admin-table button:hover {
     background-color: #5eb2be;
+  }
+
+  .input-error {
+    border: 1px solid red;
   }

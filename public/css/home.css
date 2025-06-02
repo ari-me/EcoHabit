@@ -1,20 +1,27 @@
 /* Page body */
 body {
-    background-color: #f0fdf4; /* soft eco green */
+    background-color: #f0fdf4; 
+    background-image: url('https://img.freepik.com/free-photo/greenery-frame-watercolor-green_53876-105303.jpg'); 
+    background-size: cover;       
+    background-repeat: no-repeat;
+    background-position: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #2f855a;
-    padding: 20px;
+    padding: 0px;
+    margin: 0;
   }
   
   /* Quote styling */
   #eco-quote {
-    background: #e6fffa;
+    background: #22543d;
+    color:white;
     padding: 15px 25px;
     margin-bottom: 30px;
-    border-left: 5px solid #38a169;
+    border-left: 5px solid #79bb98;
     border-radius: 10px;
     font-size: 1.2rem;
-    max-width: 700px;
+    max-width: 96%;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1);
@@ -33,7 +40,7 @@ body {
   
   /* Habit form */
   #add-habit-form {
-    background: white;
+    background: #ede8d0;
     border: 2px solid #38a169;
     border-radius: 15px;
     padding: 25px;
@@ -68,7 +75,7 @@ body {
   
   /* Cancel button */
   #cancel-habit {
-    background-color: #e53e3e;
+    background-color: #5a503c;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -76,12 +83,12 @@ body {
   }
   
   #cancel-habit:hover {
-    background-color: #c53030;
+    background-color: #786d57;
   }
   
   /* Habit box */
   #box {
-    background-color: white;
+    background-color: #ede8d0;
     border-radius: 15px;
     padding: 20px;
     max-width: 900px;
@@ -131,8 +138,8 @@ body {
   }
   
   #btn-streak:hover {
-    background-color: #2b6cb0;
-    border-color: #2b6cb0;
+    background-color: #84775d;
+    border-color: #5a503c;
   }
   
   /* Change status buttons */
@@ -173,3 +180,61 @@ body {
     }
   }
   
+.welcome-box{
+  background-color: #ede8d0;
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  border: 1px solid #4CAF50;
+  width:90%;
+  margin: 0px auto; 
+}
+
+.welcome-box h4{
+  margin-bottom: 2px;
+}
+
+.box{
+  background-color: #ede8d0;
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  border: 1px solid #4CAF50;
+  width:90%;
+  margin: 0px auto; 
+  padding: 20px;
+  justify-content: center;
+}
+
+.box h2 {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.box h4 {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.suggestion {
+  font-size: 1.1rem;
+  background-color: #9b875b;
+  border-left: 5px solid #84775d;
+  color: white;
+  text-align: left;
+  margin-top: 40px;
+}
+
+.boxday{
+  width: 88%;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  background-color: #2e5339;
+  color: white;
+  width: 100%;
+  margin:0;
+  text-align: center;
+}

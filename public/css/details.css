@@ -1,10 +1,18 @@
+body{
+  background-color: #f0fdf4; 
+  background-image: url('https://img.freepik.com/free-photo/greenery-frame-watercolor-green_53876-105303.jpg'); 
+  background-size: cover;       
+  background-repeat: no-repeat;
+  background-position: center;
+}
 /* Heading */
 #heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.3rem;
-    margin: 2% 5%;
+    font-weight: bold;
+    margin: 3% 10%;
     color: #2f855a;
   }
   
@@ -13,16 +21,19 @@
     padding: 2%;
     margin: 2% auto;
     max-width: 900px;
-    background: #f0fdf4;
-    border-radius: 12px;
+    border: 0.8px solid #2f855a;
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1);
+  }
+  .box{
+    background-color: #ede8d0;
   }
   
   /* Week Days Navigation */
   .week-days {
     display: flex;
     justify-content: space-evenly;
-    background-color: #e6fffa;
+    background-color: #ede8d0;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 1rem;
@@ -33,7 +44,7 @@
     padding: 8px 12px;
     border: 1px solid #38a169;
     border-radius: 6px;
-    background: white;
+    background: #ede8d0;
     color: #2f855a;
     font-weight: 500;
     cursor: pointer;
@@ -41,7 +52,8 @@
   }
   
   .week-days li:hover {
-    background-color: #c6f6d5;
+    background-color: #85816b;
+    color: white;
   }
   
   /* Habits List */
@@ -54,8 +66,8 @@
   #habits li {
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
-    border: 2px solid #c6f6d5;
+    background-color: #ede8d0;
+    border: 0.8px solid #2f855a;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
@@ -68,11 +80,15 @@
     align-items: center;
     flex-wrap: wrap;
     margin-top: 10px;
+    margin-bottom: 20px;
   }
   
   .habit-streak h4 {
     text-transform: capitalize;
     margin: 0;
+    font-weight: medium;
+    margin-left: 20px;
+    margin-bottom: 2px;
     color: #2f855a;
   }
   

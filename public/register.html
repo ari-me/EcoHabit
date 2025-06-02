@@ -35,6 +35,9 @@
       });
   
       const data = await res.json();
+      if (res.status === 400 && data.error === 'User already exists') {
+        document.getElementById('email').classList.add('input-error'); // add a red border in CSS
+      }   
       if (res.ok) {
         alert('Registration successful! Redirecting to login page...');
         window.location.href = '/login.html';
